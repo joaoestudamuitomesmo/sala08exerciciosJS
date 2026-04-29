@@ -1,10 +1,61 @@
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+*{
+    margin: 0;
+    padding:0;
+    box-sizing: border-box;
+
+    font-family: "Segoe UI Variable", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
 body{
-    display: flex;
-    background: linear-gradient(90deg, rgb(29, 30, 41), rgb(1, 6, 65));
+    background: linear-gradient(90deg, rgb(29, 30, 41), rgb(82, 85, 128));
     color:white;
-    align-content: center;
-    flex-direction: column;
+
+    display: flex;
     align-items: center;
     text-align: center;
-    gap:5px;
+    flex-direction: column;
+
+    gap:1vh;
 }
+
+div{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    box-shadow: rgba(17, 17, 26,0.5) 0px 4px 16px, rgba(17, 17, 26, 0.5) 0px 8px 32px;
+    border-radius: 10px;
+    padding: 1rem;
+}
+
+button{
+    border-radius: 0.8rem;
+    height: 2rem;
+}
+
+input{
+    border-radius: 0.8rem;
+    height: 2rem;
+    padding:4px;
+}
+
