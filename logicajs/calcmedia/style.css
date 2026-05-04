@@ -18,6 +18,8 @@ body{
     height: auto;
 
     gap:1vh;
+
+    background-image: url('https://wallpaperaccess.com/full/5095511.jpg');
 }
 
 div{
@@ -51,7 +53,7 @@ main{
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: row;
+    flex-direction: column;
     gap: 2vh;
     min-height: 100vh;
     flex-wrap: wrap;
@@ -86,7 +88,7 @@ a:hover{
 @keyframes fromTop{
     0%{
         transform: translateY(-1250px);
-        transform: rotate(1500deg);
+        transform: rotate(1500deg); 
     }
     50%{
         transform: translateX(850px);
@@ -98,4 +100,7 @@ a:hover{
         transform: translateY(0px);
         transform: rotate(0deg);
     }
+}
+
+h1{
 }

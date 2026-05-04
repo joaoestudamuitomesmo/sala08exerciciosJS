@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CALC + MEGALUCK</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Boogaloo&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <div class="bg-grid"></div>
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+  <canvas id="particle-canvas"></canvas>
+  <div class="scanlines"></div>
+
+  <!-- MODE SWITCHER -->
+  <div class="mode-switcher">
+    <button class="mode-switch-btn active" id="switch-calc">&#128290; CALC</button>
+    <button class="mode-switch-btn" id="switch-slot">&#127920; SLOTS</button>
+  </div>
+
+  <!-- CALCULATOR -->
+  <div class="calc-wrapper" id="panel-calc">
+    <div class="calc-glow-ring"></div>
+    <div class="calculator" id="calculator">
+      <div class="calc-header">
+        <div class="header-dots">
+          <span class="dot dot-red"></span>
+          <span class="dot dot-yellow"></span>
+          <span class="dot dot-green"></span>
+        </div>
+        <div class="calc-title">CALC<span class="infinity">&#8734;</span></div>
+        <div class="mode-indicator">
+          <span class="mode-dot"></span>
+          <span class="mode-text">ACTIVE</span>
+        </div>
+      </div>
+      <div class="display-shell">
+        <div class="display-inner">
+          <div class="display-history" id="history">0</div>
+          <div class="display-expression" id="expression"></div>
+          <div class="display-main" id="display">0</div>
+          <div class="display-decorations">
+            <div class="dec-line"></div>
+            <div class="corner-tl"></div>
+            <div class="corner-tr"></div>
+            <div class="corner-bl"></div>
+            <div class="corner-br"></div>
+          </div>
+        </div>
+        <div class="display-flicker"></div>
+      </div>
+      <div class="btn-grid">
+        <button class="btn btn-util" data-action="clear" id="btn-clear">AC</button>
+        <button class="btn btn-util" data-action="sign">&#177;</button>
+        <button class="btn btn-util" data-action="percent">%</button>
+        <button class="btn btn-op" data-action="operator" data-value="÷">÷</button>
+        <button class="btn btn-num" data-action="number" data-value="7">7</button>
+        <button class="btn btn-num" data-action="number" data-value="8">8</button>
+        <button class="btn btn-num" data-action="number" data-value="9">9</button>
+        <button class="btn btn-op" data-action="operator" data-value="×">×</button>
+        <button class="btn btn-num" data-action="number" data-value="4">4</button>
+        <button class="btn btn-num" data-action="number" data-value="5">5</button>
+        <button class="btn btn-num" data-action="number" data-value="6">6</button>
+        <button class="btn btn-op" data-action="operator" data-value="−">−</button>
+        <button class="btn btn-num" data-action="number" data-value="1">1</button>
+        <button class="btn btn-num" data-action="number" data-value="2">2</button>
+        <button class="btn btn-num" data-action="number" data-value="3">3</button>
+        <button class="btn btn-op" data-action="operator" data-value="+">+</button>
+        <button class="btn btn-num btn-zero" data-action="number" data-value="0">0</button>
+        <button class="btn btn-num" data-action="decimal">.</button>
+        <button class="btn btn-eq" data-action="equals">=</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLOT MACHINE -->
+  <div class="slot-wrapper hidden" id="panel-slot">
+    <div class="slot-glow-ring"></div>
+    <div class="slot-machine">
+
+      <div class="slot-header">
+        <div class="slot-lights-row">
+          <span class="sl sl1"></span><span class="sl sl2"></span><span class="sl sl3"></span>
+          <span class="sl sl4"></span><span class="sl sl5"></span><span class="sl sl4"></span>
+          <span class="sl sl3"></span><span class="sl sl2"></span><span class="sl sl1"></span>
+        </div>
+        <div class="slot-title-block">
+          <div class="slot-title">MEGA<span class="slot-accent">LUCK</span></div>
+          <div class="slot-subtitle">CACA NIQUEL SUPREME</div>
+        </div>
+        <div class="slot-lights-row">
+          <span class="sl sl1"></span><span class="sl sl2"></span><span class="sl sl3"></span>
+          <span class="sl sl4"></span><span class="sl sl5"></span><span class="sl sl4"></span>
+          <span class="sl sl3"></span><span class="sl sl2"></span><span class="sl sl1"></span>
+        </div>
+      </div>
+
+      <div class="jackpot-bar">
+        <span class="jp-star">&#9733;</span>
+        <span class="jp-label">JACKPOT</span>
+        <span class="jp-value" id="jackpot-value">777.777</span>
+        <span class="jp-star">&#9733;</span>
+      </div>
+
+      <div class="reels-frame">
+        <div class="reels-chrome-top"></div>
+        <div class="reels-viewport">
+          <div class="reel-shadow-top"></div>
+          <div class="reel-shadow-bot"></div>
+          <div class="reels-row">
+            <div class="reel-col" id="reel-0"><div class="reel-strip" id="strip-0"></div></div>
+            <div class="reel-sep"></div>
+            <div class="reel-col" id="reel-1"><div class="reel-strip" id="strip-1"></div></div>
+            <div class="reel-sep"></div>
+            <div class="reel-col" id="reel-2"><div class="reel-strip" id="strip-2"></div></div>
+          </div>
+          <div class="win-line-top"></div>
+          <div class="win-line-bot"></div>
+        </div>
+        <div class="reels-chrome-bot"></div>
+        <div class="reels-scanlines"></div>
+      </div>
+
+      <div class="slot-stats">
+        <div class="stat-cell">
+          <div class="stat-lbl">CREDITOS</div>
+          <div class="stat-num" id="credits-display">100</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-lbl">APOSTA</div>
+          <div class="bet-row">
+            <button class="bet-btn" id="bet-down">&#8722;</button>
+            <div class="stat-num" id="bet-display">5</div>
+            <button class="bet-btn" id="bet-up">+</button>
+          </div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-lbl">GANHO</div>
+          <div class="stat-num gold-num" id="win-display">0</div>
+        </div>
+      </div>
+
+      <button class="spin-btn" id="spin-btn">
+        <span class="spin-lightning">&#9889;</span>
+        <span class="spin-label">GIRAR</span>
+        <span class="spin-lightning">&#9889;</span>
+      </button>
+
+      <div class="win-banner" id="win-banner"></div>
+
+      <div class="paytable-wrap">
+        <button class="pt-toggle" id="pt-toggle">VER PREMIACAO &#9660;</button>
+        <div class="paytable hidden" id="paytable">
+          <div class="pt-title">TABELA DE PREMIOS</div>
+          <div class="pt-row"><span>7&#65039;&#8419; 7&#65039;&#8419; 7&#65039;&#8419;</span><span class="pt-mult">x50</span></div>
+          <div class="pt-row"><span>&#128142; &#128142; &#128142;</span><span class="pt-mult">x30</span></div>
+          <div class="pt-row"><span>&#127826; &#127826; &#127826;</span><span class="pt-mult">x20</span></div>
+          <div class="pt-row"><span>&#11088; &#11088; &#11088;</span><span class="pt-mult">x15</span></div>
+          <div class="pt-row"><span>&#128276; &#128276; &#128276;</span><span class="pt-mult">x10</span></div>
+          <div class="pt-row"><span>&#127819; &#127819; &#127819;</span><span class="pt-mult">x8</span></div>
+          <div class="pt-row"><span>&#127817; &#127817; &#127817;</span><span class="pt-mult">x5</span></div>
+          <div class="pt-row"><span>&#127818; &#127818; &#127818;</span><span class="pt-mult">x4</span></div>
+          <div class="pt-row pt-small"><span>Qualquer 2 iguais</span><span class="pt-mult">x2</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="ripple-container"></div>
+  <script src="script.js"></script>
+</body>
+</html>
